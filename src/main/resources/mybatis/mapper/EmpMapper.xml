@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.springboot.myspringboot04.mapper.EmpMapper">
+
+  
+  	<insert id="insertEmp">
+  		insert into emp (eid,ename,hirdate,did) values 
+  					(#{eid},#{ename},#{hirdate},#{dep.did})
+  	</insert> 
+  	
+  <!-- 查所有员工 -->
+  <select id="selectEmps" resultMap="depMapper">
+  	select * from emp e,dep d where d.did=e.did
+  </select>
+  
+  <resultMap type="Emp" id="depMapper">
+  	<id column="eid" property="eid"/>
+  	<result column="ename" property="ename"/>
+  	<result column="hirdate" property="hirdate"/>
+  	<association property="dep" javaType="Dep">
+  		<id column="did" property="did"/>
+  		<result column="dname" property="dname"/>
+  	</association>
+  </resultMap>
+  
+  <!-- 根据编号查一个员工 -->
+  <select id="selectEmpByEid" resultMap="depMapperByEid">
+ 	select * from emp e,dep d where d.did=e.did and eid=#{eid}
+  </select>
+  
+    <resultMap type="Emp" id="depMapperByEid">
+  	<id column="eid" property="eid"/>
+  	<result column="ename" property="ename"/>
+  	<result column="hirdate" property="hirdate"/>
+  	<association property="dep" javaType="Dep">
+  		<id column="did" property="did"/>
+  		<result column="dname" property="dname"/>
+  	</association>
+  </resultMap>
+  
+   <delete id="delectEmp" >
+    	delete from emp where eid = #{eid}
+  	</delete>
+</mapper>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link type="text/css/" rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<span class="red">欢迎来到登录页面</span><br/>
+<span th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></span><br/>
+<!-- 模板引擎的提交方式 -->
+<form th:action="@{/user/login}" method="post">
+	账号：<input type="text" name="username"><br/>
+	密码：<input type="text" name="password"><br/>
+	<input type="submit" name="login"><br/>
+</form>
+</body>
+</html>
